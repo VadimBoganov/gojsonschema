@@ -747,6 +747,14 @@ func (v *subSchema) validateString(currentSubSchema *subSchema, value interface{
 
 	// pattern:
 	if currentSubSchema.pattern != nil {
+		if strings.HasPrefix(currentSubSchema.pattern.String(), "notincluded") && currentSubSchema.pattern.MatchString(stringValue) {
+			result.addInternalError(
+				new(PersonalInformationFoundError),
+				context,
+				value,
+				ErrorDetails{"pattern": currentSubSchema.pattern},
+			)
+		}
 		if !currentSubSchema.pattern.MatchString(stringValue) {
 			result.addInternalError(
 				new(DoesNotMatchPatternError),

@@ -207,6 +207,12 @@ type (
 	ConditionElseError struct {
 		ResultErrorFields
 	}
+
+	// PersonalInformationFound is produced if a string has personal information
+	// ErrorDetails: pattern
+	PersonalInformationFoundError struct {
+		ResultErrorFields
+	}
 )
 
 // newError takes a ResultError type and sets the type, context, description, details, value, and field
@@ -310,6 +316,9 @@ func newError(err ResultError, context *JsonContext, value interface{}, locale l
 	case *ConditionElseError:
 		t = "condition_else"
 		d = locale.ConditionElse()
+	case *PersonalInformationFoundError:
+		t = "pattern"
+		d = locale.PersonalInformationFound()
 	}
 
 	err.SetType(t)

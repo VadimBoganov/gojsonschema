@@ -184,6 +184,9 @@ type (
 		// ConditionElse returns a format-string for ConditionElseError errors
 		ConditionElse() string
 
+		// returns a format-string to format an PersonalInformationFoundError
+		PersonalInformationFound() string
+
 		// ErrorFormat returns a format string for errors
 		ErrorFormat() string
 	}
@@ -454,6 +457,11 @@ func (l DefaultLocale) ConditionThen() string {
 // ConditionElse returns a format-string for ConditionElseError errors
 func (l DefaultLocale) ConditionElse() string {
 	return `Must validate "else" as "if" was not valid`
+}
+
+// PersonalInformationFound returns a format-string to format an PersonalInformationFound
+func (l DefaultLocale) PersonalInformationFound() string {
+	return `Found personal information in '{{.field}}' by pattern '{{.pattern}}'`
 }
 
 // constants
